@@ -3,62 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\User; 
+
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function createStudent(Request $request)
     {
-        //
+        $inserted = DB::table('students')->insert([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ]);
+    
+        // Check if insertion was successful
+        if ($inserted) {
+            return redirect('/api/my-form')->with('message', 'done');
+        } else {
+            return response()->json(['message' => 'Failed to create student'], 500);
+        }
+
+        dd($inserted);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function listStudent()
     {
-        //
+        $user = DB::select('select * from users');
+        $usernames = collect($user)->pluck('name');
+        dd($usernames);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function updateStudent()
     {
-        //
+        $user = DB::update('update users set name = ? where id = ?', ['Joshua', 12]);
+
+        dd($user);
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    public function deleteStudent()
+{
+    $deleted = DB::delete('delete from users where id = ?', [1]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    dd($deleted);
+}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function form()
+{
+    return view('student-manager');
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

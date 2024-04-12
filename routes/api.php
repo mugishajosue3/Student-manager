@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+
+
+
 });
-Route::resource('students', 'App\Http\Controllers\StudentController');
+
+Route::post("/create-student", [StudentController::class, "createStudent"]);
+
+Route::post("/list-student", [StudentController::class, "listStudent"]);
+
+Route::post("/update-student", [StudentController::class, "updateStudent"]);
+
+Route::post("/delete-student", [StudentController::class, "deleteStudent"]);
+
+Route::get("/my-form", [StudentController::class, "form"]);
 
