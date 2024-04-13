@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>   
-    <h1 style="color:blue; margin-left:7cm; margin-top:3cm; margin-bottom:2cm;">This Is List Of Students</h1>
+    <h1 style="color:blue; margin-left:7cm; margin-top:3cm; margin-bottom:2cm;">Student Registration</h1>
    <div class="container-md">
      <!-- Display the message if it exists -->
      @if (session('message'))
@@ -31,7 +31,12 @@
         <input type="password" class="form-control" name="password">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <a href="http://127.0.0.1:8000/api/list-student" type="button" class="btn btn-primary">
+  See student list
+</a>
+    </form>
    </div>
+   <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                
    </body>
 </html>

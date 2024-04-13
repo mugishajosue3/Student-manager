@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User; 
 
 
+
 class StudentController extends Controller
 {
     public function createStudent(Request $request)
@@ -19,7 +20,7 @@ class StudentController extends Controller
     
         // Check if insertion was successful
         if ($inserted) {
-            return redirect('/api/my-form')->with('message', 'done');
+            return redirect('/api/list-student')->with('message', 'done');
         } else {
             return response()->json(['message' => 'Failed to create student'], 500);
         }
@@ -28,12 +29,23 @@ class StudentController extends Controller
     }
 
     public function listStudent()
-    {
-        $user = DB::select('select * from users');
-        $usernames = collect($user)->pluck('name');
-        dd($usernames);
+{
+    // Get all students from the database
+    $students = DB::table('students')->get();
 
-    }
+    // Get the count of students
+    $studentCount = $students->count();
+
+    // Extract just the names of the students
+    $usernames = $students->pluck('name');
+
+    // Pass the student names and count to the view
+    return view('student-list', [
+        'usernames' => $usernames,
+        'studentCount' => $studentCount,
+    ]);
+}
+
 
     public function updateStudent()
     {

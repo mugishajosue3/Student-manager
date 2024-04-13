@@ -24,11 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post("/create-student", [StudentController::class, "createStudent"]);
 
-Route::post("/list-student", [StudentController::class, "listStudent"]);
+Route::get("/list-student", [StudentController::class, "listStudent"]);
 
 Route::post("/update-student", [StudentController::class, "updateStudent"]);
 
 Route::post("/delete-student", [StudentController::class, "deleteStudent"]);
 
 Route::get("/my-form", [StudentController::class, "form"]);
+
+
 
