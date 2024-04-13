@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User; 
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -12,10 +13,12 @@ class StudentController extends Controller
 {
     public function createStudent(Request $request)
     {
+
+        $hashedpassword = hash::make($request->input('password'));
         $inserted = DB::table('students')->insert([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'password' => $hashedpassword,
         ]);
     
         // Check if insertion was successful
@@ -31,7 +34,7 @@ class StudentController extends Controller
     public function listStudent()
 {
     // Get all students from the database
-    $students = DB::table('students')->get();
+    $students = DB::table('students')->select('id', 'name', 'email')->get();
 
     // Get the count of students
     $studentCount = $students->count();
@@ -39,21 +42,26 @@ class StudentController extends Controller
     // Extract just the names of the students
     $usernames = $students->pluck('name');
 
+    // Extracts Id also
+    // $student = $students->pluck('id');
+
     // Pass the student names and count to the view
     return view('student-list', [
         'usernames' => $usernames,
         'studentCount' => $studentCount,
+        // 'student' => $student,
     ]);
+
+    // dd($students);
 }
 
 
-    public function updateStudent()
-    {
-        $user = DB::update('update users set name = ? where id = ?', ['Joshua', 12]);
+public function showUpdateForm($id)
+{
+    $student = Student::find($id);
+    return view('update-student', ['student' => $student]);
+}
 
-        dd($user);
-
-    }
 
     public function deleteStudent()
 {

@@ -8,7 +8,12 @@
   </head>
   <body style="background-color: rgb(38, 59, 78);">   
   <a href="/api/my-form" class="btn btn-outline-primary" style="float:right; margin-right:1cm;">Lets Register Another Student</a>
-
+<!-- Display the message if it exists -->
+@if (session('message'))
+            <div class="p-text-green-500">
+                {{ session('message') }}
+            </div>
+        @endif
 <table class="table table-striped table-dark" style="width:50%; margin-top:1cm; margin-left:8cm; border-radius:1cm;">
   <thead>
     <tr>
@@ -25,7 +30,9 @@
                 <th scope="row">{{ $index + 1 }}</th>
                 <td>{{ $username }}</td>
                 <td>{{ $username }}@example.com</td>
-                <td></td>
+                <td style="width:28%;">
+                <button class="btn btn-info">Update</button>
+                <button type="button" class="btn btn-danger">Delete</button></td>
             </tr>
         @endforeach
     </tbody>

@@ -9,12 +9,7 @@
   <body>   
     <h1 style="color:blue; margin-left:7cm; margin-top:3cm; margin-bottom:2cm;">Student Registration</h1>
    <div class="container-md">
-     <!-- Display the message if it exists -->
-     @if (session('message'))
-            <div class="p-text-green-500">
-                {{ session('message') }}
-            </div>
-        @endif
+     
    <form action="/api/create-student" method="post">
     @csrf
     <div class="mb-3" style="width:50%;">
