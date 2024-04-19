@@ -30,8 +30,9 @@
                 <th scope="row">{{ $index + 1 }}</th>
                 <td>{{ $username }}</td>
                 <td>{{ $username }}@example.com</td>
-                <td style="width:28%;">
-                <button class="btn btn-info">Update</button>
+                <td style="width:28z%;">
+                <a class="btn btn-info" href="{{ route('update-student', ['id' => $index + 1]) }}">Update</a>
+
                 <button type="button" class="btn btn-danger">Delete</button></td>
             </tr>
         @endforeach

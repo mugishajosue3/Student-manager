@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User; 
 use Illuminate\Support\Facades\Hash;
+use App\Models\Student; 
 
 
 
@@ -57,10 +58,30 @@ class StudentController extends Controller
 
 
 public function showUpdateForm($id)
+    {
+        // Retrieve the student based on the provided ID
+        $student = Student::findOrFail($id);
+
+        // Pass the student data to the view
+        return view('update-student', ['student' => $student]);
+    }
+
+    public function updateStudent(Request $request, $id)
 {
-    $student = Student::find($id);
-    return view('update-student', ['student' => $student]);
+    // Retrieve the student based on the provided ID
+    $student = Student::findOrFail($id);
+
+    // Update the student's information
+    $student->name = $request->input('name');
+    $student->email = $request->input('email');
+    $student->save();
+
+    // Redirect back to the list of students or show a success message
+    // Redirecting back to the list of students might look like this:
+    return redirect('/api/list-student')->with('message', 'Student updated successfully');
 }
+
+    
 
 
     public function deleteStudent()

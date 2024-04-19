@@ -26,7 +26,7 @@ Route::post("/create-student", [StudentController::class, "createStudent"]);
 
 Route::get("/list-student", [StudentController::class, "listStudent"]);
 
-Route::get('/update-student/{id}', [StudentController::class, 'showUpdateForm'])->name('update-student');
+Route::put('/update-student/{id}', [StudentController::class, 'showUpdateForm'])->name('update-student');
 
 Route::post("/delete-student", [StudentController::class, "deleteStudent"]);
 
